@@ -88,3 +88,5 @@ nmap <F5> :NERDTreeToggle<CR>
 nmap <F6> :VimShell<CR>
 nnoremap <C-\> zc
 nmap ss <Plug>(easymotion-s2)
+command! Q q
+command! W w
