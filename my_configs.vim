@@ -1,9 +1,29 @@
 set number
 set tags=./.tags;,.tags
 syntax on
+syntax enable
+
+colorscheme material
+let g:material_terminal_italics = 1
+let g:material_theme_style = 'ocean'
+" For Neovim 0.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
+if (has('nvim'))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+endif
+
+" For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
+" Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
+" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
+if (has('termguicolors'))
+  set termguicolors
+endif
+
+" set background=dark
+" colorscheme solarized
 
 set foldenable 
 set foldmethod=indent
+set foldlevelstart=10
 
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
@@ -70,16 +90,18 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
 
+
 call plug#begin("~/.vim_runtime/my_plugins")
 Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-scripts/a.vim'
-Plug 'preservim/nerdcommenter'
 Plug 'preservim/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Shougo/vimshell.vim'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'NLKNguyen/c-syntax.vim'
 call plug#end()
 
 
@@ -90,3 +112,4 @@ nnoremap <C-\> zc
 nmap ss <Plug>(easymotion-s2)
 command! Q q
 command! W w
+
