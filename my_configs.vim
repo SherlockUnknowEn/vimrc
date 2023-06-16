@@ -58,6 +58,11 @@ let g:indentLine_char = '¦'				" 设置缩进线字符，也可以为 '|', '┆
 let g:indentLine_conceallevel = 1 		" 使插件正常运
 autocmd FileType json,markdown let g:indentLine_conceallevel = 0 "避免json中不显示双引号
 
+"为python和shell等添加注释
+autocmd FileType python,shell,coffee set commentstring=#\ %s
+"修改注释风格
+autocmd FileType java,c,cpp set commentstring=//\ %s
+
 " C++语法高亮
 let g:cpp_class_decl_highlight = 1
 let g:cpp_class_scope_highlight = 1
