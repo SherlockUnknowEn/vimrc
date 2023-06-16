@@ -7,7 +7,7 @@
 
 ### install
 
-1. 安装 [vimrc](https://github.com/amix/vimrc)
+1. 安装 [amix/vimrc](https://github.com/amix/vimrc)
 
 2. 修改~/.vim_runtime/my_configs.vim
 
