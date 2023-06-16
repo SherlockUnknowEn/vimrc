@@ -7,6 +7,20 @@ set foldenable
 set foldmethod=indent
 set foldlevelstart=10
 
+" coc.nvim config
+set nobackup
+set nowritebackup
+set updatetime=300
+set signcolumn=no
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+
+" material 主题
 colorscheme material
 let g:material_terminal_italics = 1
 let g:material_theme_style = 'ocean'
@@ -24,30 +38,35 @@ endif
 
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
-
 " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
-
 " 配置 ctags 的参数
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
 " 检测 ~/.cache/tags 不存在就新建
 if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 
+" 缩进线
 let g:indentLine_enabled = 1			" 使插件生效
 let g:indentLine_char = '¦'				" 设置缩进线字符，也可以为 '|', '┆', '┊' 等
 let g:indentLine_conceallevel = 1 		" 使插件正常运
 autocmd FileType json,markdown let g:indentLine_conceallevel = 0 "避免json中不显示双引号
 
+" C++语法高亮
+let g:cpp_class_decl_highlight = 1
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+
+" Ack 搜索
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
 
 """""""""""" YouCompleteMe"""""""""""""""""""""""""""""""
 " let g:ycm_enable_semantic_highlighting = 1                  " 语法高亮
@@ -67,7 +86,7 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 " inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>" |            " 回车即选中当前项
 
 
-" Create default mappings
+" 文件树 Create default mappings
 let g:NERDCreateDefaultMappings = 1
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -86,16 +105,7 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
 
-" coc.nvim config
-set nobackup
-set nowritebackup
-set updatetime=300
-set signcolumn=yes
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
+" 插件管理
 call plug#begin("~/.vim_runtime/my_plugins")
 " Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
@@ -106,11 +116,12 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Shougo/vimshell.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'NLKNguyen/c-syntax.vim'
+" Plug 'NLKNguyen/c-syntax.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'octol/vim-cpp-enhanced-highlight'
 call plug#end()
 
-
+" 常用键映射
 nmap <F4> :TagbarToggle<CR>
 nmap <F5> :NERDTreeToggle<CR>
 nmap <F6> :VimShell<CR>
@@ -118,4 +129,3 @@ nnoremap <C-\> zc
 nmap ss <Plug>(easymotion-s2)
 command! Q q
 command! W w
-
