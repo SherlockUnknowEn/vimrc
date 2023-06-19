@@ -110,6 +110,9 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
 
+" ctlp C-f 改为 C-g
+let g:ctrlp_map = '<C-g>'
+
 " 插件管理
 call plug#begin("~/.vim_runtime/my_plugins")
 " Plug 'Valloric/YouCompleteMe'
