@@ -16,3 +16,6 @@
 4. 修改~/.config/coc/memos.json，增加一行
 
 `"clangd.arguments": ["--header-insertion=never"]`
+
+5. 安装COC子插件
+`CocInstall coc-clangd coc-json`
