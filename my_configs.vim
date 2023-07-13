@@ -1,3 +1,15 @@
+" set tmux color
+"set background=dark
+" true color enable
+if has("termguicolors")
+    " enable true color
+    set termguicolors
+endif
+if &term =~# '^screen'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
 set number
 set tags=./.tags;,.tags
 syntax on
@@ -134,6 +146,7 @@ nmap <F4> :TagbarToggle<CR>
 nmap <F5> :NERDTreeToggle<CR>
 nmap <F6> :VimShell<CR>
 nnoremap <C-\> zc
-nmap ss <Plug>(easymotion-s2)
+nnoremap ss <Plug>(easymotion-s2)
+vnoremap ss <Plug>(easymotion-s2)
 command! Q q
 command! W w
