@@ -102,7 +102,7 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 " let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 注释和字符串中的文字也会被收入补全
 " let g:ycm_show_diagnostics_ui = 0                           " 禁用语法检查
 " let g:ycm_min_num_of_chars_for_completion = 2                 " 从第2个键入字符就开始罗列匹配项
-" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>" |            " 回车即选中当前项
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"             " 回车即选中当前项
 
 
 " 文件树 Create default mappings
@@ -124,8 +124,8 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
 
-" ctlp C-f 改为 C-g
-let g:ctrlp_map = '<C-g>'
+" ctlp C-f 改为 C-p
+let g:ctrlp_map = '<C-p>'
 
 " 插件管理
 call plug#begin("~/.vim_runtime/my_plugins")
