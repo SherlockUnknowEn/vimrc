@@ -4,6 +4,7 @@
 
 - node 16.20.0
 - clangd-linux-16.0.2
+- universal-ctags
 
 ### install
 
@@ -18,4 +19,4 @@
 `"clangd.arguments": ["--header-insertion=never"]`
 
 5. 安装COC子插件
-`CocInstall coc-clangd coc-json`
+`CocInstall coc-clangd coc-json coc-highlight coc-python`
