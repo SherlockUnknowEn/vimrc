@@ -14,9 +14,14 @@
 
 3. PlugInstall 安装插件
 
-4. 修改~/.config/coc/memos.json，增加一行
+4. `:CocConfig`
+在setting.json中加入
 
-`"clangd.arguments": ["--header-insertion=never"]`
+```
+{
+  "clangd.arguments": ["--header-insertion=never"]
+}
+```
 
-5. 安装COC子插件
+6. 安装COC子插件
 `CocInstall coc-clangd coc-json coc-highlight coc-python`
