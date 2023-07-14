@@ -48,6 +48,8 @@ if (has('termguicolors'))
   set termguicolors
 endif
 
+highlight Normal guibg=Black
+
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 " 所生成的数据文件的名称
