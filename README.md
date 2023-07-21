@@ -19,7 +19,8 @@
 
 ```
 {
-  "clangd.arguments": ["--header-insertion=never"]
+  "clangd.arguments": ["--header-insertion=never"],
+  "inlayHint.display": false
 }
 ```
 
