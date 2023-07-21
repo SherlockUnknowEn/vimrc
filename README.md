@@ -25,3 +25,9 @@
 
 6. 安装COC子插件
 `CocInstall coc-clangd coc-json coc-highlight coc-python`
+
+7. 安装 bear
+`apt-get install bear`
+
+8. 在项目目录
+`bear make <target>` 即可生成clangd需要的 compile_commands.json 文件
