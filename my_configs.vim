@@ -1,8 +1,10 @@
 set number
 set tags=./.tags;,.tags
+"set mouse=a
 syntax on
 syntax enable
 
+set cursorline
 set foldenable 
 set foldmethod=indent
 set foldlevelstart=10
@@ -18,16 +20,31 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" 文档滚动
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 
+" 格式化代码
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" onedark 主题
+colorscheme onedark
 
 " material 主题
-colorscheme material
-let g:material_terminal_italics = 1
-let g:material_theme_style = 'ocean'
+" colorscheme material
+"let g:material_terminal_italics = 1
+" let g:material_theme_style = 'ocean'
 " For Neovim 0.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
-if (has('nvim'))
-  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-endif
+"if (has('nvim'))
+"  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+"endif
 
 " For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
 " Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
@@ -40,7 +57,7 @@ endif
 "highlight Normal guibg=Black
 
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.cache']
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
 " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
@@ -130,14 +147,20 @@ Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 " Plug 'NLKNguyen/c-syntax.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'scrooloose/syntastic' 
+Plug 'joshdick/onedark.vim'
 call plug#end()
 
 " 常用键映射
 nmap <F4> :TagbarToggle<CR>
 nmap <F5> :NERDTreeToggle<CR>
 nmap <F6> :VimShell<CR>
+nnoremap ; :
 nnoremap <C-\> zc
 nnoremap ss <Plug>(easymotion-s2)
 vnoremap ss <Plug>(easymotion-s2)
+nnoremap <Space> <Plug>(easymotion-s2)
+vnoremap <Space> <Plug>(easymotion-s2)
+" vnoremap <C-/> gc
 command! Q q
 command! W w
