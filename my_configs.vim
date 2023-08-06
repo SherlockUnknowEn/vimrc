@@ -14,6 +14,26 @@ set nobackup
 set nowritebackup
 set updatetime=300
 set signcolumn=no
+set smartindent
+
+" 插件管理
+call plug#begin("~/.vim_runtime/my_plugins")
+" Plug 'Valloric/YouCompleteMe'
+Plug 'Yggdroot/indentLine'
+Plug 'easymotion/vim-easymotion'
+Plug 'vim-scripts/a.vim'
+Plug 'preservim/tagbar'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Shougo/vimshell.vim'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+" Plug 'NLKNguyen/c-syntax.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'scrooloose/syntastic' 
+Plug 'joshdick/onedark.vim'
+call plug#end()
+
 " Highlight the symbol and its references when holding the cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
 " Make <CR> to accept selected completion item or notify coc.nvim to format
@@ -132,24 +152,6 @@ let g:NERDToggleCheckAllLines = 1
 
 " ctlp C-f 改为 C-p
 let g:ctrlp_map = '<C-p>'
-
-" 插件管理
-call plug#begin("~/.vim_runtime/my_plugins")
-" Plug 'Valloric/YouCompleteMe'
-Plug 'Yggdroot/indentLine'
-Plug 'easymotion/vim-easymotion'
-Plug 'vim-scripts/a.vim'
-Plug 'preservim/tagbar'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'Shougo/vimshell.vim'
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-" Plug 'NLKNguyen/c-syntax.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'scrooloose/syntastic' 
-Plug 'joshdick/onedark.vim'
-call plug#end()
 
 " 常用键映射
 nmap <F4> :TagbarToggle<CR>
