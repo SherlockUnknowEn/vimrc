@@ -21,7 +21,8 @@ call plug#begin("~/.vim_runtime/my_plugins")
 " Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
 Plug 'easymotion/vim-easymotion'
-Plug 'vim-scripts/a.vim'
+" Plug 'vim-scripts/a.vim'
+Plug 'derekwyatt/vim-fswitch'
 Plug 'preservim/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -161,6 +162,7 @@ nnoremap ; :
 nnoremap <C-\> zc
 nnoremap ss <Plug>(easymotion-s2)
 vnoremap ss <Plug>(easymotion-s2)
+nmap <silent> <Leader>a :FSHere<cr>
 nnoremap <Space> <Plug>(easymotion-s2)
 vnoremap <Space> <Plug>(easymotion-s2)
 " vnoremap <C-/> gc
