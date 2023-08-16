@@ -15,7 +15,7 @@ let &t_SI = "\<Esc>[5 q" . "\<Esc>]12;\x7"
 " REPLACE mode
 let &t_SR = "\<Esc>[3 q" . "\<Esc>]12;\x7"
 " NORMAL mode
-let &t_EI = "\<Esc>[2 q" . "\<Esc>]12;\x7"
+let &t_EI = "\<Esc>[1 q" . "\<Esc>]12;\x7"
 
 " 1 -> blinking block  闪烁的方块
 " 2 -> solid block  不闪烁的方块
