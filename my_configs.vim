@@ -162,9 +162,17 @@ nnoremap ; :
 nnoremap <C-\> zc
 nnoremap ss <Plug>(easymotion-s2)
 vnoremap ss <Plug>(easymotion-s2)
-nmap <silent> <Leader>a :FSHere<cr>
 nnoremap <Space> <Plug>(easymotion-s2)
 vnoremap <Space> <Plug>(easymotion-s2)
+nmap <silent> <Leader>a :FSHere<cr>
+" 代码快速上下移一行
+nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+" 可视模式连续调整缩进
+xnoremap <  <gv
+xnoremap >  >gv
+" 选择当前行至结尾，排除换行符
+vnoremap L g_
 " vnoremap <C-/> gc
 command! Q q
 command! W w
