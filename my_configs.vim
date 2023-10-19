@@ -1,6 +1,5 @@
 set number
 set tags=./.tags;,.tags
-"set mouse=a
 syntax on
 syntax enable
 
@@ -8,6 +7,10 @@ set cursorline
 set foldenable 
 set foldmethod=indent
 set foldlevelstart=10
+set listchars=space:·
+set smartindent
+" set mouse=nv
+" set list
 
 " Set cursor shape and color
 " INSERT mode
@@ -29,27 +32,6 @@ set nobackup
 set nowritebackup
 set updatetime=300
 set signcolumn=no
-set smartindent
-
-" 插件管理
-call plug#begin("~/.vim_runtime/my_plugins")
-" Plug 'Valloric/YouCompleteMe'
-Plug 'Yggdroot/indentLine'
-Plug 'easymotion/vim-easymotion'
-" Plug 'vim-scripts/a.vim'
-Plug 'derekwyatt/vim-fswitch'
-Plug 'preservim/tagbar'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'Shougo/vimshell.vim'
-" Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-" Plug 'NLKNguyen/c-syntax.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'scrooloose/syntastic' 
-Plug 'joshdick/onedark.vim'
-call plug#end()
-
 " Highlight the symbol and its references when holding the cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
 " Make <CR> to accept selected completion item or notify coc.nvim to format
@@ -72,6 +54,7 @@ nmap <leader>f  <Plug>(coc-format-selected)
 
 " onedark 主题
 colorscheme onedark
+hi Normal guibg=NONE ctermbg=NONE
 
 " material 主题
 " colorscheme material
@@ -96,6 +79,16 @@ colorscheme onedark
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.cache']
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
+
+" 同时开启 ctags 和 gtags 支持：
+let g:gutentags_modules = []
+if executable('ctags')
+	let g:gutentags_modules += ['ctags']
+endif
+if executable('gtags-cscope') && executable('gtags')
+	let g:gutentags_modules += ['gtags_cscope']
+endif
+
 " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
@@ -103,10 +96,14 @@ let g:gutentags_cache_dir = s:vim_tags
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
 " 检测 ~/.cache/tags 不存在就新建
 if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
+
+" 如果使用 universal ctags 需要增加下面一行，老的 Exuberant-ctags 不能加下一行
+let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
 " 缩进线
 let g:indentLine_enabled = 1			" 使插件生效
@@ -169,6 +166,26 @@ let g:NERDToggleCheckAllLines = 1
 " ctlp C-f 改为 C-p
 let g:ctrlp_map = '<C-p>'
 
+" 插件管理
+call plug#begin("~/.vim_runtime/my_plugins")
+" Plug 'Valloric/YouCompleteMe'
+Plug 'Yggdroot/indentLine'
+Plug 'easymotion/vim-easymotion'
+" Plug 'vim-scripts/a.vim'
+Plug 'preservim/tagbar'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'skywind3000/gutentags_plus'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Shougo/vimshell.vim'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+" Plug 'NLKNguyen/c-syntax.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'scrooloose/syntastic' 
+Plug 'derekwyatt/vim-fswitch'
+Plug 'joshdick/onedark.vim'
+call plug#end()
+
 " 常用键映射
 nmap <F4> :TagbarToggle<CR>
 nmap <F5> :NERDTreeToggle<CR>
@@ -188,6 +205,11 @@ xnoremap <  <gv
 xnoremap >  >gv
 " 选择当前行至结尾，排除换行符
 vnoremap L g_
+nnoremap L g_
+nnoremap dL dg_
+vnoremap dL dg_
+" ctags 映射
+" nnoremap <C-]> g<C-]>
 " vnoremap <C-/> gc
 command! Q q
 command! W w
