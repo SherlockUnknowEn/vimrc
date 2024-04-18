@@ -59,7 +59,7 @@ hi Normal guibg=NONE ctermbg=NONE
 "highlight CursorLine gui=underline cterm=underline
 "highlight Normal guibg=Black
 
-" 使用ccls 不需要下面这个
+" 不需要下面这个
 " " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 " let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.cache']
 " " 所生成的数据文件的名称
@@ -179,8 +179,8 @@ Plug 'easymotion/vim-easymotion'
 " Plug 'vim-scripts/a.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/tagbar'
-" Plug 'ludovicchabant/vim-gutentags'
-" Plug 'skywind3000/gutentags_plus'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'skywind3000/gutentags_plus'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Shougo/vimshell.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
