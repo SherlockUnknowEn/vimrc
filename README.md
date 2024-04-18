@@ -4,6 +4,7 @@
 
 - node 16.20.0
 - clangd-linux-18.1.3 (最新版本)
+- ccls
 - ~~universal-ctags~~
 
 ### install
@@ -20,7 +21,22 @@
 ```
 {
   "clangd.arguments": ["--header-insertion=never"],
-  "inlayHint.display": false
+  "inlayHint.display": false,
+  "languageserver": {
+        "ccls": {
+            "command": "ccls",
+            "filetypes": ["c", "cpp", "cc", "c++", "cuda", "objc", "objcpp"],
+            "rootPatterns": [".ccls-root", ".ccls", ".git", ".hg", ".svn", ".root", "compile_commands.json"],
+            "initializationOptions": {
+                "cache": {
+                    "directory": ".ccls-cache"
+                },
+                "client": {
+                    "snippetSupport": true
+                }
+            }
+        }
+    }
 }
 ```
 
