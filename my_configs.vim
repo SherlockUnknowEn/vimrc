@@ -2,13 +2,13 @@ set number
 set tags=./.tags;,.tags
 syntax on
 syntax enable
-
 set cursorline
-set foldenable 
+set foldenable
 set foldmethod=indent
 set foldlevelstart=10
 set listchars=space:·
 set smartindent
+set clipboard=unnamed
 " set mouse=nv
 " set list
 
@@ -56,54 +56,39 @@ nmap <leader>f  <Plug>(coc-format-selected)
 colorscheme onedark
 hi Normal guibg=NONE ctermbg=NONE
 
-" material 主题
-" colorscheme material
-"let g:material_terminal_italics = 1
-" let g:material_theme_style = 'ocean'
-" For Neovim 0.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
-"if (has('nvim'))
-"  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-"endif
-
-" For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
-" Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
-" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
-"if (has('termguicolors'))
-"  set termguicolors
-"endif
-
 "highlight CursorLine gui=underline cterm=underline
 "highlight Normal guibg=Black
 
-" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.cache']
-" 所生成的数据文件的名称
-let g:gutentags_ctags_tagfile = '.tags'
+" 使用ccls 不需要下面这个
+" " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+" let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.cache']
+" " 所生成的数据文件的名称
+" let g:gutentags_ctags_tagfile = '.tags'
 
 " 同时开启 ctags 和 gtags 支持：
-let g:gutentags_modules = []
-if executable('ctags')
-	let g:gutentags_modules += ['ctags']
-endif
-if executable('gtags-cscope') && executable('gtags')
-	let g:gutentags_modules += ['gtags_cscope']
-endif
+" let g:gutentags_modules = []
+" if executable('ctags')
+" 	let g:gutentags_modules += ['ctags']
+" endif
+" if executable('gtags-cscope') && executable('gtags')
+" 	let g:gutentags_modules += ['gtags_cscope']
+" endif
 
-" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-let s:vim_tags = expand('~/.cache/tags')
-let g:gutentags_cache_dir = s:vim_tags
-" 配置 ctags 的参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+" " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+" let s:vim_tags = expand('~/.cache/tags')
+" let g:gutentags_cache_dir = s:vim_tags
+" " 配置 ctags 的参数
+" let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
-" 检测 ~/.cache/tags 不存在就新建
-if !isdirectory(s:vim_tags)
-   silent! call mkdir(s:vim_tags, 'p')
-endif
+" " 检测 ~/.cache/tags 不存在就新建
+" if !isdirectory(s:vim_tags)
+"    silent! call mkdir(s:vim_tags, 'p')
+" endif
 
-" 如果使用 universal ctags 需要增加下面一行，老的 Exuberant-ctags 不能加下一行
-let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+" " 如果使用 universal ctags 需要增加下面一行，老的 Exuberant-ctags 不能加下一行
+" let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
 " 缩进线
 let g:indentLine_enabled = 1			" 使插件生效
@@ -126,24 +111,6 @@ let g:cpp_class_decl_highlight = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 
-"""""""""""" YouCompleteMe"""""""""""""""""""""""""""""""
-" let g:ycm_enable_semantic_highlighting = 1                  " 语法高亮
-" let g:ycm_collect_identifiers_from_tags_files = 1           " 开启 YCM 基于标签引擎
-" let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 注释与字符串中的内容也用于补全
-" let g:syntastic_ignore_files=[".*\.py$"]
-" let g:ycm_seed_identifiers_with_syntax = 1                  " 语法关键字补全
-" let g:ycm_complete_in_comments = 1
-" let g:ycm_confirm_extra_conf = 0
-" let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']  " 映射按键, 没有这个会拦截掉tab, 导致其他插件的tab不能用.
-" let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
-" let g:ycm_complete_in_comments = 1                          " 在注释输入中也能补全
-" let g:ycm_complete_in_strings = 1                           " 在字符串输入中也能补全
-" let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 注释和字符串中的文字也会被收入补全
-" let g:ycm_show_diagnostics_ui = 0                           " 禁用语法检查
-" let g:ycm_min_num_of_chars_for_completion = 2                 " 从第2个键入字符就开始罗列匹配项
-" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"             " 回车即选中当前项
-
-
 " 文件树 Create default mappings
 let g:NERDCreateDefaultMappings = 1
 " Add spaces after comment delimiters by default
@@ -160,30 +127,70 @@ let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
 let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
-" Enable NERDCommenterToggle to check all selected lines is commented or not 
+" Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
 
 " ctlp C-f 改为 C-p
 let g:ctrlp_map = '<C-p>'
 
+
+if executable('pylsp')
+    " pip install python-lsp-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pylsp',
+        \ 'cmd': {server_info->['pylsp']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
 " 插件管理
 call plug#begin("~/.vim_runtime/my_plugins")
-" Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
 Plug 'easymotion/vim-easymotion'
 " Plug 'vim-scripts/a.vim'
+Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/tagbar'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
+" Plug 'ludovicchabant/vim-gutentags'
+" Plug 'skywind3000/gutentags_plus'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Shougo/vimshell.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-" Plug 'NLKNguyen/c-syntax.vim'
+Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'scrooloose/syntastic' 
+Plug 'scrooloose/syntastic'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'joshdick/onedark.vim'
+Plug 'Exafunction/codeium.vim'
 call plug#end()
 
 " 常用键映射
