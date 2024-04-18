@@ -3,8 +3,7 @@
 ### requirement (auto-completed)
 
 - node 16.20.0
-- 编译安装 ccls (同时需要下载prebuild clang+llvm-xxx对应版本)
-- ~~clangd-linux-16.0.2~~
+- clangd-linux-18.1.3 (最新版本)
 - ~~universal-ctags~~
 
 ### install
@@ -21,22 +20,7 @@
 ```
 {
   "clangd.arguments": ["--header-insertion=never"],
-  "inlayHint.display": false,
-  "languageserver": {
-    "ccls": {
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "cc", "c++", "cuda", "objc", "objcpp"],
-      "rootPatterns": [".ccls-root", ".ccls", ".git", ".hg", ".svn", ".root", "compile_commands.json"],
-      "initializationOptions": {
-        "cache": {
-          "directory": ".ccls-cache"
-        },
-        "client": {
-          "snippetSupport": true
-        }
-      }
-    }
-  }
+  "inlayHint.display": false
 }
 ```
 
