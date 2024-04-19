@@ -63,7 +63,7 @@ hi Normal guibg=NONE ctermbg=NONE
  let g:gutentags_modules = ['ctags', 'gtags_cscope']
 
  " config project root markers.
- let g:gutentags_project_root = ['.root']
+ let g:gutentags_project_root = ['.git', 'compile_command.json', '.hg', 'CMakeLists.txt', '.svn', 'Makefile', '.root']
 
  " generate datebases in my cache directory, prevent gtags files polluting my project
  let g:gutentags_cache_dir = expand('~/.cache/tags')
