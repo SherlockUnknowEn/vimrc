@@ -12,6 +12,16 @@ set clipboard=unnamed
 " set mouse=nv
 " set list
 
+" true color enable
+if has("termguicolors")
+    " enable true color
+    set termguicolors
+endif
+if &term =~# '^screen'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
 " Set cursor shape and color
 " INSERT mode
 let &t_SI = "\<Esc>[5 q" . "\<Esc>]12;\x7"
