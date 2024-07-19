@@ -163,6 +163,15 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 " 可视模式连续调整缩进
 xnoremap <  <gv
 xnoremap >  >gv
+
+nnoremap H :<C-u>echo "H is disabled"<CR>
+nnoremap J :<C-u>echo "J is disabled"<CR>
+nnoremap K :<C-u>echo "K is disabled"<CR>
+nnoremap L :<C-u>echo "L is disabled"<CR>
+nnoremap U :<C-u>echo "U is disabled"<CR>
+nnoremap P :<C-u>echo "P is disabled"<CR>
+
+
 " 选择当前行至结尾，排除换行符
 vnoremap L g_
 nnoremap L g_
