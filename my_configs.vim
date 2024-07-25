@@ -27,7 +27,34 @@ let &t_EI = "\<Esc>[1 q" . "\<Esc>]12;\x7"
 " 5 -> blinking vertical bar  闪烁的竖线
 " 6 -> solid vertical bar  不闪烁的竖线
 
-" coc.nvim config
+
+
+" ========================= scheme config
+" onedark 主题
+" colorscheme onedark
+" hi Normal guibg=NONE ctermbg=NONE
+
+" set termguicolors
+" colorscheme onedark
+" colorscheme nord
+" colorscheme gruvbox
+colorscheme neodark
+
+" enable true color enable
+" if has("termguicolors")
+"     " enable true color
+"     set termguicolors
+" endif
+" if &term =~# '^screen'
+"     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" endif
+"highlight CursorLine gui=underline cterm=underline
+"highlight Normal guibg=Black
+
+
+
+" ========================= coc.nvim config
 set nobackup
 set nowritebackup
 set updatetime=300
@@ -47,36 +74,23 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
     vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
     vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
-
 " 格式化代码
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+" Use K to show documentation in preview window
+nnoremap <C-k> :call ShowDocumentation()<CR>
 
-" onedark 主题
-" colorscheme onedark
-" hi Normal guibg=NONE ctermbg=NONE
-
-
-" set termguicolors
-" colorscheme onedark
-" colorscheme nord
-" colorscheme gruvbox
-colorscheme neodark
-
-" enable true color enable
-" if has("termguicolors")
-"     " enable true color
-"     set termguicolors
-" endif
-" if &term =~# '^screen'
-"     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-" endif
-
-"highlight CursorLine gui=underline cterm=underline
-"highlight Normal guibg=Black
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 
 
+
+" ========================= gutentags config
 " enable gtags module
 " let g:gutentags_modules = ['ctags', 'gtags_cscope']
 
@@ -92,6 +106,9 @@ colorscheme neodark
 " 禁用 gutentags 自动加载 gtags 数据库的行为
 " let g:gutentags_auto_add_gtags_cscope = 0
 
+
+
+" ========================= indentLine config
 " 缩进线
 let g:indentLine_enabled = 1			" 使插件生效
 let g:indentLine_char = '¦'				" 设置缩进线字符，也可以为 '|', '┆', '┊' 等
@@ -103,15 +120,25 @@ autocmd FileType python,shell,coffee set commentstring=#\ %s
 "修改注释风格
 autocmd FileType java,c,cpp set commentstring=//\ %s
 
+
+
+" ========================= vim-cpp-enhanced-highlight config
 " C++语法高亮
 let g:cpp_class_decl_highlight = 1
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 
+
+
+" ========================= Ack config
 " Ack 搜索
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
+
+
+
+" ========================= NERDTree config
 nmap <F6> :NERDTreeToggle<CR>
 " 文件树 Create default mappings
 let g:NERDCreateDefaultMappings = 1
@@ -134,10 +161,16 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
 
+
+
+" ========================= ctrlp config
 " ctlp C-f 改为 C-p
 let g:ctrlp_map = '<C-p>'
 
 
+
+
+" ========================= LeaderF config
 " don't show the help in normal mode
 let g:Lf_HideHelp = 1
 let g:Lf_UseCache = 0
@@ -148,7 +181,10 @@ let g:Lf_WindowPosition = 'popup'
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
 let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git', 'CMakeLists.txt', 'Makefile']
-
+let g:Lf_WildIgnore = {
+            \ 'dir': ['.svn','.git','.hg'],
+            \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so', '.tags', 'tags']
+            \}
 let g:Lf_ShortcutF = '<C-P>'
 noremap <leader>g : Leaderf gtags <CR>
 noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
@@ -175,6 +211,8 @@ noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 noremap <F5> :LeaderfFunction!<cr>
 
 
+
+" ========================= vim-plug
 " 插件管理
 call plug#begin("~/.vim_runtime/my_plugins")
 Plug 'Yggdroot/indentLine'
@@ -184,7 +222,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'scrooloose/syntastic' 
+" Plug 'scrooloose/syntastic' 
 Plug 'derekwyatt/vim-fswitch'
 Plug 'joshdick/onedark.vim'
 Plug 'KeitaNakamura/neodark.vim'
@@ -192,8 +230,14 @@ Plug 'nordtheme/vim'
 Plug 'morhetz/gruvbox'
 Plug 'Exafunction/codeium.vim'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension'  }
+Plug 'tpope/vim-surround'
+Plug 'sheerun/vim-polyglot'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
 
+
+
+" ========================= 快捷键
 " 常用键映射
 nnoremap ; :
 noremap <C-\> zc
